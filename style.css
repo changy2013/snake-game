@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #1a1a2e;
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #4ecca3;
+}
+
+.score-board {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+#game-canvas {
+    border: 2px solid #4ecca3;
+    border-radius: 4px;
+    background: #16213e;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.controls {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #4ecca3;
+    color: #1a1a2e;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.instructions {
+    margin-top: 12px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.mobile-controls {
+    display: none;
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.horizontal {
+    display: flex;
+    gap: 5px;
+}
+
+.dir-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+    border-radius: 50%;
+    padding: 0;
+}
+
+@media (max-width: 500px) {
+    #game-canvas {
+        width: 320px;
+        height: 320px;
+    }
+
+    .mobile-controls {
+        display: flex;
+    }
+}

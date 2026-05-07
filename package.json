@@ -1,0 +1,8 @@
+{
+  "name": "snake-game",
+  "version": "1.0.0",
+  "description": "贪吃蛇游戏",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}

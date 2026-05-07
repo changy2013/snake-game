@@ -140,7 +140,48 @@ function draw() {
     ctx.fill();
 }
 
-function gameOver() {
+async function submitScore(playerName, finalScore) {
+    try {
+        await fetch('/api/scores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ player_name: playerName, score: finalScore })
+        });
+    } catch (e) {
+        console.error('提交分数失败', e);
+    }
+}
+
+async function loadLeaderboard() {
+    try {
+        const res = await fetch('/api/scores');
+        return await res.json();
+    } catch (e) {
+        console.error('加载排行榜失败', e);
+        return [];
+    }
+}
+
+function showLeaderboard(rows) {
+    const list = document.getElementById('leaderboard-list');
+    list.innerHTML = '';
+    if (!rows.length) {
+        list.innerHTML = '<li>暂无记录</li>';
+        return;
+    }
+    rows.forEach((row, i) => {
+        const li = document.createElement('li');
+        const date = new Date(row.created_at).toLocaleDateString('zh-CN');
+        li.textContent = `${i + 1}. ${row.player_name} — ${row.score} 分  (${date})`;
+        if (i === 0) li.style.color = '#ffd700';
+        else if (i === 1) li.style.color = '#c0c0c0';
+        else if (i === 2) li.style.color = '#cd7f32';
+        list.appendChild(li);
+    });
+    document.getElementById('leaderboard').style.display = 'block';
+}
+
+async function gameOver() {
     running = false;
     clearInterval(gameLoop);
     gameLoop = null;
@@ -157,6 +198,14 @@ function gameOver() {
     ctx.fillStyle = '#eee';
     ctx.font = '18px sans-serif';
     ctx.fillText('得分: ' + score, canvas.width / 2, canvas.height / 2 + 25);
+
+    if (score > 0) {
+        const playerName = prompt(`得分: ${score}\n输入你的名字（留空则显示"匿名"）:`) || '匿名';
+        await submitScore(playerName.trim() || '匿名', score);
+    }
+
+    const rows = await loadLeaderboard();
+    showLeaderboard(rows);
 }
 
 function startGame() {

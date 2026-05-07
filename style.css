@@ -97,6 +97,40 @@ button:disabled {
     padding: 0;
 }
 
+#leaderboard {
+    margin-top: 24px;
+    background: #16213e;
+    border: 1px solid #4ecca3;
+    border-radius: 8px;
+    padding: 16px 24px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#leaderboard h2 {
+    color: #4ecca3;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+#leaderboard-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+#leaderboard-list li {
+    padding: 4px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #1a2744;
+    color: #ccc;
+}
+
+#leaderboard-list li:last-child {
+    border-bottom: none;
+}
+
 @media (max-width: 500px) {
     #game-canvas {
         width: 320px;

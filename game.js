@@ -15,7 +15,7 @@ let nextDirection = { x: 1, y: 0 };
 let score = 0;
 let highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
 let gameLoop = null;
-let speed = 150;
+let speed = 220;
 let running = false;
 let paused = false;
 

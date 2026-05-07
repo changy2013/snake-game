@@ -108,6 +108,31 @@ button:disabled {
     margin-right: auto;
 }
 
+.leaderboard-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.leaderboard-actions button,
+.import-label {
+    flex: 1;
+    padding: 6px 0;
+    background: #0f3460;
+    color: #4ecca3;
+    border: 1px solid #4ecca3;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.leaderboard-actions button:hover,
+.import-label:hover {
+    background: #1a4a7a;
+}
+
 #leaderboard h2 {
     color: #4ecca3;
     font-size: 1.1rem;

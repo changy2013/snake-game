@@ -276,3 +276,51 @@ document.getElementById('right-btn').addEventListener('click', () => {
 // Initial draw
 init();
 draw();
+
+// Export Excel
+document.getElementById('export-btn').addEventListener('click', () => {
+    window.location.href = '/api/export';
+});
+
+// Import Excel
+document.getElementById('import-file').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const importLabel = document.querySelector('.import-label');
+    importLabel.textContent = '导入中...';
+
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+        try {
+            const wb = XLSX.read(ev.target.result, { type: 'array' });
+            const ws = wb.Sheets[wb.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(ws);
+
+            let success = 0, fail = 0;
+            for (const row of rows) {
+                const name = (row['玩家名'] || row['player_name'] || '匿名').toString().slice(0, 50);
+                const score = parseInt(row['分数'] ?? row['score']);
+                if (isNaN(score) || score < 0) { fail++; continue; }
+                try {
+                    await fetch('/api/scores', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ player_name: name, score })
+                    });
+                    success++;
+                } catch { fail++; }
+            }
+
+            alert(`导入完成：成功 ${success} 条，跳过 ${fail} 条`);
+            const updated = await loadLeaderboard();
+            showLeaderboard(updated);
+        } catch (err) {
+            alert('文件解析失败，请确认是有效的 Excel 文件');
+        } finally {
+            importLabel.textContent = '导入 Excel';
+            e.target.value = '';
+        }
+    };
+    reader.readAsArrayBuffer(file);
+});

@@ -31,9 +31,17 @@
         </div>
         <div id="leaderboard" style="display:none">
             <h2>排行榜 Top 10</h2>
+            <div class="leaderboard-actions">
+                <button id="export-btn">导出 Excel</button>
+                <label class="import-label">
+                    导入 Excel
+                    <input type="file" id="import-file" accept=".xlsx,.xls" style="display:none">
+                </label>
+            </div>
             <ol id="leaderboard-list"></ol>
         </div>
     </div>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
